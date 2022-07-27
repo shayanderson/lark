@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Lark\Cli\Console;
+use Lark\Exception as LarkException;
+
+/**
+ * Lark Console
+ */
+
+try
+{
+	require_once './app/bootstrap.php';
+
+	// run console app
+	$console = Console::getInstance();
+	$console->run($_SERVER['argv']);
+}
+catch (Throwable $th)
+{
+	LarkException::handle($th, function (array $info) use ($console, $th)
+	{
+		if (!$console)
+		{
+			throw $th;
+		}
+
+		$console->output()->error($th->getMessage());
+
+		$console->output()->echo(
+			print_r($info, true)
+		);
+
+		$console->output()->echo(
+			$th->getTraceAsString()
+		);
+
+		$console->exit(
+			$th->getCode() ? $th->getCode() : 1
+		);
+	});
+}

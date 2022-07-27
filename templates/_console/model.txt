@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {$NAMESPACE};
+
+use App\Model;
+use Lark\Schema;
+
+/**
+ * {$NAME} model
+ */
+class {$CLASS} extends Model
+{
+	/**
+	 * Database string
+	 */
+	{$DBS}
+
+	/**
+	 * Schema getter
+	 *
+	 * @return Schema
+	 */
+	public static function schema(): Schema
+	{
+		return new Schema(
+			{$SCHEMA}
+		);
+	}
+}

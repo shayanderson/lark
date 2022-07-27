@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+use App\LogHandler;
+use Lark\Env;
+use Lark\Logger;
+
+/**
+ * App bootstrap
+ */
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// set directories
+define('DIR_ROOT', dirname(__DIR__, 1));
+const DIR_APP = __DIR__;
+const DIR_MODELS = DIR_APP . '/Model';
+const DIR_REVISIONS = DIR_ROOT . '/revisions';
+const DIR_ROUTES = DIR_APP . '/routes';
+const DIR_SCHEMAS = DIR_APP . '/schemas';
+const DIR_TEMPLATES = DIR_ROOT . '/templates';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// import autoloader
+require_once DIR_ROOT . '/vendor/autoload.php';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// import app helper functions
+require_once DIR_APP . '/functions.php';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// load .env file
+Env::getInstance()->load(DIR_ROOT . '/.env');
+// #todo change to: app()->use('env.load', DIR_APP . '/.env');
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// init log handler
+app()->logHandler = new LogHandler;
+Logger::handler(app()->logHandler);
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// app debug mode
+const DEBUG = false;
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// enable Lark debugging (optional) #todo improve comment for debugger
+app()->use('debug', true);
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// global database options (optional)
+// app()->use('db.options', [
+// 	'debug.dump' => true,
+// 	'debug.log' => true,
+// 	'find.limit' => 10_000
+// ]);
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// database connections (optional)
+// app()->use('db.connection.default', [
+// 	'hosts' => ['127.0.0.1'],
+// 	'username' => env('DB_USER'),
+// 	'password' => env('DB_PASSWORD'),
+// ]);

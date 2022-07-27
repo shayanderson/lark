@@ -1,0 +1,25 @@
+{
+	"name": "lark/app",
+	"description": "Lark Application",
+	"keywords": ["lark", "framework"],
+	"license": "MIT",
+	"homepage": "https://github.com/shayanderson/lark",
+	"support": {
+		"issues": "https://github.com/shayanderson/lark/issues",
+		"source": "https://github.com/shayanderson/lark"
+	},
+	"authors": [
+		{
+			"name": "Shay Anderson",
+			"email": "shaycoder@gmail.com"
+		}
+	],
+	"require": {
+		"lark/framework": "0.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "app/"
+		}
+	}
+}
