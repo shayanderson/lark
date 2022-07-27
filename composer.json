@@ -1,6 +1,7 @@
 {
 	"name": "lark/app",
 	"description": "Lark Application",
+	"type": "project",
 	"keywords": ["lark", "framework"],
 	"license": "MIT",
 	"homepage": "https://github.com/shayanderson/lark",
