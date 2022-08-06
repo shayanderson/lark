@@ -7,7 +7,7 @@ namespace App;
 use stdClass;
 
 /**
- * Route model helper
+ * Route model
  */
 class RouteModel
 {
@@ -167,7 +167,7 @@ class RouteModel
 	}
 
 	/**
-	 * Resource not found helper
+	 * Resource not found
 	 *
 	 * @return array{message: string}
 	 */

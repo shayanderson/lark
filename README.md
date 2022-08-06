@@ -16,18 +16,20 @@ composer create-project lark/app ./
 ```
 Then, initialize project:
 ```
-php lark --init
+./lark --init
 ```
 
 ## Console
-Lark Console is available to assist in creating routes, schemas and models. Lark Console can be run from the project root directory.
+Lark Console is available to assist in creating routes, schemas, models and revisions. Lark Console can be run from the project root directory.
 ```
-lark route items
+./lark route items
 ```
 Namespaces can also be used.
 ```
-lark route api/items
+./lark route api/items
 ```
+> View all commands with `./lark` or `./lark help`
+> View command specific help with `./lark help COMMAND`
 
 ## Middleware
 Create middleware files in the `app/Middleware` directory.
@@ -70,7 +72,7 @@ abstract class Controller
 
 	public function __construct()
 	{
-		$this->res = app()->response();
+		$this->res = res();
 	}
 }
 ```

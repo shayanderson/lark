@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exception;
 
+use App\Exception;
 use Throwable;
 
 /**
@@ -16,7 +17,7 @@ class Handler
 {
 	public function __construct(Throwable $th)
 	{
-		\Lark\Exception::handle($th, function (array $info) use ($th)
+		Exception::handle($th, function (array $info) use ($th)
 		{
 			$code = $th->getCode();
 
@@ -32,6 +33,11 @@ class Handler
 
 			pa('<h5><pre>' . print_r($info, true) . '</pre></h5>');
 
+			if (DEBUG)
+			{
+				p($th->getTraceAsString());
+			}
+
 			#todo improve
 			if (DEBUG)
 			{
@@ -40,9 +46,7 @@ class Handler
 
 			// respond with error
 			#todo uncomment:
-			// app()->response()
-			// 	->code($code)
-			// 	->json($info);
+			// halt($code, $info);
 		});
 	}
 }

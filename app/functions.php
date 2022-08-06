@@ -20,6 +20,16 @@ function filter(): Filter
 }
 
 /**
+ * Check if CLI
+ *
+ * @return boolean
+ */
+function is_cli(): bool
+{
+	return PHP_SAPI === 'cli';
+}
+
+/**
  * Validator helper
  *
  * @param array|object $data

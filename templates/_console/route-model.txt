@@ -2,108 +2,16 @@
 
 declare(strict_types=1);
 
+use App\RouteController;
+use App\RouteModel;
+
 /**
  * Route file for "{$PATHBASE}"
  */
-$routeModel = new App\RouteModel(new {$CLASSMODEL});
+$routeModel = new RouteModel(new {$CLASSMODEL});
 
 router()
 	/**
-	 * DELETE {$PATHBASE}
-	 *
-	 * (delete documents)
+	 * Use route controller
 	 */
-	->delete('/', function () use ($routeModel): array
-	{
-		return $routeModel->delete(req()->jsonArray());
-	})
-
-	/**
-	 * DELETE {$PATHBASE}/{id}
-	 *
-	 * (delete single document)
-	 */
-	->delete('/([0-9a-fA-F]{24})', function (string $id) use ($routeModel): array
-	{
-		return $routeModel->deleteDoc($id);
-	})
-
-	/**
-	 * GET {$PATHBASE}
-	 *
-	 * (fetch documents)
-	 */
-	->get('/', function () use ($routeModel): array
-	{
-		return $routeModel->get();
-	})
-
-	/**
-	 * GET {$PATHBASE}/{id}
-	 *
-	 * (fetch single document)
-	 */
-	->get('/([0-9a-fA-F]{24})', function (string $id) use ($routeModel): array
-	{
-		return $routeModel->getDoc($id);
-	})
-
-	/**
-	 * PATCH {$PATHBASE}
-	 *
-	 * (update documents)
-	 */
-	->patch('/', function () use ($routeModel): array
-	{
-		return $routeModel->patch(req()->jsonArray());
-	})
-
-	/**
-	 * PATCH {$PATHBASE}/{id}
-	 *
-	 * (update single document)
-	 */
-	->patch('/([0-9a-fA-F]{24})', function (string $id) use ($routeModel): array
-	{
-		return $routeModel->patchDoc($id, req()->jsonObject());
-	})
-
-	/**
-	 * POST {$PATHBASE}
-	 *
-	 * (create documents)
-	 */
-	->post('/', function () use ($routeModel): array
-	{
-		return $routeModel->post(req()->jsonArray());
-	})
-
-	/**
-	 * POST {$PATHBASE}/_doc
-	 *
-	 * (create single document)
-	 */
-	->post('/_doc', function () use ($routeModel): array
-	{
-		return $routeModel->postDoc(req()->jsonObject());
-	})
-
-	/**
-	 * PUT {$PATHBASE}
-	 *
-	 * (replace documents)
-	 */
-	->put('/', function () use ($routeModel): array
-	{
-		return $routeModel->put(req()->jsonArray());
-	})
-
-	/**
-	 * PUT {$PATHBASE}/{id}
-	 *
-	 * (replace single document)
-	 */
-	->put('/([0-9a-fA-F]{24})', function (string $id) use ($routeModel): array
-	{
-		return $routeModel->putDoc($id, req()->jsonObject());
-	});
+	->controller(new RouteController($routeModel));

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Lark\Exception as LarkException;
+use App\Exception as AppException;
 
 /**
  * CLI app
@@ -20,14 +20,14 @@ try
 	$out = $cli->output();
 
 	// global options
-	$cli->option("-d, --debug", "Enable debug mode", function () use ($isDebug)
+	$cli->option('-d, --debug', 'Enable debug mode', function () use ($isDebug)
 	{
 		$isDebug = true;
 	});
 
 	// help command
 	$cli->command('help', 'Display help')
-		->arg("command", "Command name", ["optional"])
+		->arg('command', 'Command name', ['optional'])
 		->action(function ($command = null) use ($cli)
 		{
 			$command ? $cli->helpCommand($command) : $cli->help();
@@ -38,7 +38,8 @@ try
 }
 catch (Throwable $th)
 {
-	LarkException::handle($th, function (array $info) use ($cli, $isDebug, $th)
+	#todo mv to app ex handler
+	AppException::handle($th, function (array $info) use ($cli, $isDebug, $th)
 	{
 		if (!$cli)
 		{

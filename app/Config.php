@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App;
 
 /**
- * Session
+ * App config
  *
- * #todo examples in app Docs
+ * #docs
  */
-class Session
+class Config
 {
 }
