@@ -1,5 +1,5 @@
 <?php
-
+#version$
 declare(strict_types=1);
 
 namespace App\Exception;
@@ -7,16 +7,16 @@ namespace App\Exception;
 use App\Exception;
 
 /**
- * Route not found (HTTP 404) exception
+ * Unauthorized (HTTP 401) exception
  *
  * @author Shay Anderson
  */
-class RouteNotFoundException extends Exception
+class UnauthorizedException extends Exception
 {
 	/**
 	 * @inheritDoc
 	 */
-	protected $code = 404;
+	protected $code = 401;
 
 	/**
 	 * Init
@@ -27,7 +27,7 @@ class RouteNotFoundException extends Exception
 	 * @param \Throwable|null $previous
 	 */
 	public function __construct(
-		string $message = 'Route not found',
+		string $message = 'Permission denied',
 		array $context = null,
 		int $code = 0,
 		\Throwable $previous = null

@@ -9,6 +9,8 @@ use Lark\Logger\Record;
 
 /**
  * Log handler
+ *
+ * @author Shay Anderson
  */
 class LogHandler extends \Lark\Logger\Handler
 {

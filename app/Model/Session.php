@@ -9,6 +9,8 @@ use Lark\Schema;
 
 /**
  * Session model
+ *
+ * @author Shay Anderson
  */
 class Session extends Model
 {

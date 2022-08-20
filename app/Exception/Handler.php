@@ -10,6 +10,8 @@ use Throwable;
 /**
  * Exception handler
  *
+ * @author Shay Anderson
+ *
  * #docs
  * #todo finish
  */
@@ -29,24 +31,25 @@ class Handler
 			// log error
 			// ...
 
-			#todo if not debug strip $info[source]
-
-			pa('<h5><pre>' . print_r($info, true) . '</pre></h5>');
-
-			if (DEBUG)
+			// output message as error
+			if (!DEBUG)
 			{
-				p($th->getTraceAsString());
+				halt($code, $th->getMessage());
 			}
 
-			#todo improve
-			if (DEBUG)
-			{
-				x();
-			}
+			///////////////////////////////////////////////////////////////////////////////////////
+			// debugging
+			// set response code
+			res()->code($code);
 
-			// respond with error
-			#todo uncomment:
-			// halt($code, $info);
+			// output exception
+			echo '<pre>' . print_r($info, true) . '</pre>';
+
+			// output trace string
+			echo '<pre>' . $th->getTraceAsString() . '</pre>';
+
+			// dump exception
+			x($th);
 		});
 	}
 }

@@ -6,7 +6,7 @@ use Lark\Schema;
 
 $schema = new Schema(array(
 	'$index' =>
-	(object) array(
+	array(
 		'access' => 1,
 		'$name' => 'idxAccess',
 	),

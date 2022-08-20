@@ -1,5 +1,5 @@
 <?php
-
+#version$
 declare(strict_types=1);
 
 namespace App\Exception;
@@ -7,11 +7,12 @@ namespace App\Exception;
 use App\Exception;
 
 /**
- * Route not found (HTTP 404) exception
+ * Resource not found exception
  *
  * @author Shay Anderson
+ * #docs
  */
-class RouteNotFoundException extends Exception
+class ResourceNotFoundException extends Exception
 {
 	/**
 	 * @inheritDoc
@@ -27,7 +28,7 @@ class RouteNotFoundException extends Exception
 	 * @param \Throwable|null $previous
 	 */
 	public function __construct(
-		string $message = 'Route not found',
+		string $message = 'Resource not found',
 		array $context = null,
 		int $code = 0,
 		\Throwable $previous = null

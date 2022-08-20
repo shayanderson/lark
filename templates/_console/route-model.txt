@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-use App\RouteController;
-use App\RouteModel;
+use App\Controller;
 
 /**
  * Route file for "{$PATHBASE}"
  */
-$routeModel = new RouteModel(new {$CLASSMODEL});
+$controller = new Controller(new {$CLASSMODEL});
 
 router()
 	/**
 	 * Use route controller
 	 */
-	->controller(new RouteController($routeModel));
+	->controller($controller);

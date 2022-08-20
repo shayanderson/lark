@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Exception\RouteNotFoundException;
+
 /**
  * App HTTP routes
  */
@@ -17,11 +19,6 @@ router()->after(function ()
 	// output log
 	// pa(str_repeat('<br/>', 5), '<b>Log:</b>');
 	// pa(app()->logHandler->close());
-
-	if (DEBUG)
-	{
-		x();
-	}
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +40,7 @@ router()->get('/', function (): string
 // route not found handler
 router()->notFound(function ($method, $path)
 {
-	throw new App\Exception\RouteNotFoundException('Route not found', [
+	throw new RouteNotFoundException('Route not found', [
 		'method' => $method,
 		'path' => $path
 	]);
