@@ -63,8 +63,8 @@ app()->use('db.connection.default', [
 	'username' => env('DB_USER'),
 	'password' => env('DB_PASSWORD'),
 	'options' => [
-		'debug.dump' => true,
-		'debug.log' => false,
+		'debug.dump' => false,
+		'debug.log' => false
 	]
 ]);
 

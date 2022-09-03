@@ -22,10 +22,17 @@ class {$CLASS} extends Model
 	 *
 	 * @return Schema
 	 */
-	public static function schema(): Schema
+	public static function &schema(): Schema
 	{
-		return new Schema(
-			{$SCHEMA}
-		);
+		static $schema;
+
+		if(!$schema)
+		{
+			$schema = new Schema(
+				{$SCHEMA}
+			);
+		}
+
+		return $schema;
 	}
 }

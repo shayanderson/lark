@@ -1,5 +1,5 @@
 <?php
-#version$
+
 declare(strict_types=1);
 
 namespace App\Exception;
@@ -10,7 +10,6 @@ use App\Exception;
  * Resource not found exception
  *
  * @author Shay Anderson
- * #docs
  */
 class ResourceNotFoundException extends Exception
 {

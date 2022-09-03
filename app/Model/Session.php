@@ -24,10 +24,17 @@ class Session extends Model
 	 *
 	 * @return Schema
 	 */
-	public static function schema(): Schema
+	public static function &schema(): Schema
 	{
-		return new Schema(
-			require DIR_SCHEMAS . '/sessions.php'
-		);
+		static $schema;
+
+		if (!$schema)
+		{
+			$schema = new Schema(
+				require DIR_SCHEMAS . '/sessions.php'
+			);
+		}
+
+		return $schema;
 	}
 }

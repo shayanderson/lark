@@ -28,7 +28,7 @@ class Handler
 				$code = 500;
 			}
 
-			// log error
+			// #todo log error
 			// ...
 
 			// output message as error
@@ -36,6 +36,10 @@ class Handler
 			{
 				halt($code, $th->getMessage());
 			}
+
+			// add more exception info
+			$info['file'] = $th->getFile();
+			$info['line'] = $th->getLine();
 
 			///////////////////////////////////////////////////////////////////////////////////////
 			// debugging
@@ -48,8 +52,8 @@ class Handler
 			// output trace string
 			echo '<pre>' . $th->getTraceAsString() . '</pre>';
 
-			// dump exception
-			x($th);
+			// dump
+			x();
 		});
 	}
 }

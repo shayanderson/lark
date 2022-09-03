@@ -10,7 +10,7 @@ namespace App;
 class App extends \Lark\App
 {
 	#todo docs, implement
-	use \Lark\App\Store;
+	use \Lark\App\StoreTrait;
 
 	/**
 	 * Log handler object

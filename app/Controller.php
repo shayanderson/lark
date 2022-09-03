@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exception\ResourceNotFoundException;
+use Lark\HookableTrait;
 use Lark\Router;
 use Lark\Router\RouteControllerInterface;
 use stdClass;
@@ -16,6 +17,8 @@ use stdClass;
  */
 class Controller implements RouteControllerInterface
 {
+	use HookableTrait;
+
 	/**
 	 * Model
 	 *
@@ -164,6 +167,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function delete(array $ids): array
 	{
+		$this->hook(__FUNCTION__, $ids);
+
 		return [
 			'affected' => $this->model->db()->deleteIds($ids)
 		];
@@ -177,9 +182,11 @@ class Controller implements RouteControllerInterface
 	 */
 	public function deleteDoc(string $id): array
 	{
+		$this->hook(__FUNCTION__, $id);
+
 		if (!$this->model->db()->hasIds([$id]))
 		{
-			self::throw(new ResourceNotFoundException);
+			throw new ResourceNotFoundException;
 		}
 
 		return [
@@ -194,6 +201,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function get(): array
 	{
+		$this->hook(__FUNCTION__);
+
 		return $this->model->db()->find();
 	}
 
@@ -205,7 +214,9 @@ class Controller implements RouteControllerInterface
 	 */
 	public function getDoc(string $id): array
 	{
-		return $this->model->db()->findId($id) ?? self::throw(new ResourceNotFoundException);
+		$this->hook(__FUNCTION__, $id);
+
+		return $this->model->db()->findId($id) ?? throw new ResourceNotFoundException;
 	}
 
 	/**
@@ -216,6 +227,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function patch(array $docs): array
 	{
+		$this->hook(__FUNCTION__, $docs);
+
 		return $this->model->db()->findIds(
 			$this->model->db()->updateBulk($docs)
 		);
@@ -230,8 +243,9 @@ class Controller implements RouteControllerInterface
 	 */
 	public function patchDoc(string $id, stdClass $doc): array
 	{
-		return $this->model->db()->updateId($id, $doc)
-			?? self::throw(new ResourceNotFoundException);
+		$this->hook(__FUNCTION__, $id, $doc);
+
+		return $this->model->db()->updateId($id, $doc) ?? throw new ResourceNotFoundException;
 	}
 
 	/**
@@ -242,6 +256,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function post(array $docs): array
 	{
+		$this->hook(__FUNCTION__, $docs);
+
 		return $this->model->db()->findIds(
 			$this->model->db()->insert($docs)
 		);
@@ -255,6 +271,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function postDoc(stdClass $doc): array
 	{
+		$this->hook(__FUNCTION__, $doc);
+
 		return $this->model->db()->findId(
 			$this->model->db()->insertOne($doc)
 		);
@@ -268,6 +286,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function put(array $docs): array
 	{
+		$this->hook(__FUNCTION__, $docs);
+
 		return $this->model->db()->findIds(
 			$this->model->db()->replaceBulk($docs)
 		);
@@ -282,19 +302,8 @@ class Controller implements RouteControllerInterface
 	 */
 	public function putDoc(string $id, stdClass $doc): array
 	{
-		return $this->model->db()->replaceId($id, $doc)
-			?? self::throw(new ResourceNotFoundException);
-	}
+		$this->hook(__FUNCTION__, $id, $doc);
 
-	/**
-	 * Throw ResourceNotFoundException exception
-	 * (used for PHP7 instead of `[x] ?? throw new ResourceNotFoundException` allowed in PHP8)
-	 *
-	 * @param ResourceNotFoundException $ex
-	 * @return void
-	 */
-	private static function throw(ResourceNotFoundException $ex): void
-	{
-		throw $ex;
+		return $this->model->db()->replaceId($id, $doc) ?? throw new ResourceNotFoundException;
 	}
 }
