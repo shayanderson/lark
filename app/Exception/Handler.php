@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Exception;
 
 use App\Exception;
+use Lark\Debugger;
 use Throwable;
 
 /**
@@ -28,8 +29,18 @@ class Handler
 				$code = 500;
 			}
 
-			// #todo log error
-			// ...
+			// add more exception info
+			if (DEBUG)
+			{
+				$info['file'] = $th->getFile();
+				$info['line'] = $th->getLine();
+			}
+
+			// log errors except 404
+			if ($code !== 404)
+			{
+				logger()->error($th->getMessage(), $info);
+			}
 
 			// output message as error
 			if (!DEBUG)
@@ -37,14 +48,16 @@ class Handler
 				halt($code, $th->getMessage());
 			}
 
-			// add more exception info
-			$info['file'] = $th->getFile();
-			$info['line'] = $th->getLine();
-
 			///////////////////////////////////////////////////////////////////////////////////////
 			// debugging
 			// set response code
 			res()->code($code);
+
+			// do not debug dump
+			if (!req()->query('debug')->has())
+			{
+				halt($code, $info);
+			}
 
 			// output exception
 			echo '<pre>' . print_r($info, true) . '</pre>';
@@ -53,7 +66,11 @@ class Handler
 			echo '<pre>' . $th->getTraceAsString() . '</pre>';
 
 			// dump
-			x();
+			Debugger::append();
+			Debugger::dump(false);
+
+			// output log
+			echo '<pre>' . print_r(app()->logHandler->close(), true) . '</pre>';
 		});
 	}
 }

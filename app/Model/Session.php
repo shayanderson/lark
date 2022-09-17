@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Model;
-use Lark\Schema;
 
 /**
  * Session model
@@ -20,21 +19,7 @@ class Session extends Model
 	const DBS = 'default$app$sessions';
 
 	/**
-	 * Schema getter
-	 *
-	 * @return Schema
+	 * Schema file
 	 */
-	public static function &schema(): Schema
-	{
-		static $schema;
-
-		if (!$schema)
-		{
-			$schema = new Schema(
-				require DIR_SCHEMAS . '/sessions.php'
-			);
-		}
-
-		return $schema;
-	}
+	const SCHEMA = 'sessions.php';
 }

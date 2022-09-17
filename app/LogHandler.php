@@ -63,14 +63,38 @@ class LogHandler extends \Lark\Logger\Handler
 	 */
 	public function write(Record $record): void
 	{
-		if ($this->isHandling($record))
+		if (!$this->isHandling($record))
 		{
-			$this->log[] = $record;
-
-			if (count($this->log) > $this->maxRecords) // limit records
-			{
-				array_shift($this->log);
-			}
+			return;
 		}
+
+		$this->log[] = $record;
+
+		if (count($this->log) > $this->maxRecords) // limit records
+		{
+			array_shift($this->log);
+		}
+
+		// when debugging or error/critical
+		if ((DEBUG && !is_cli()) || $record->level >= Logger::LEVEL_ERROR)
+		{
+			// send to error log output
+			error_log(json_encode($record));
+		}
+
+		// do not send Lark records to DB
+		if ($record->channel === '$lark')
+		{
+			return;
+		}
+
+		// do not send debug level records to DB
+		if ($record->level < Logger::LEVEL_INFO)
+		{
+			return;
+		}
+
+		// send to DB
+		// (new LogModel)->insert($record);
 	}
 }

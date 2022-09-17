@@ -12,14 +12,7 @@ use App\Exception\RouteNotFoundException;
 // middleware
 // router()->bind();
 // router()->matched();
-
-// after middleware
-router()->after(function ()
-{
-	// output log
-	// pa(str_repeat('<br/>', 5), '<b>Log:</b>');
-	// pa(app()->logHandler->close());
-});
+// router()->after();
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // routes load file (used for auto creating routes)

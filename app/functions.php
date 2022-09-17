@@ -52,10 +52,10 @@ function json_decoder(string $json, ?bool $associative = null, int $depth = 512,
  *
  * @param array|object $data
  * @param array|\Lark\Schema $schema
- * @param int $flags
+ * @param string $mode
  * @return Validator
  */
-function validate($data, $schema, int $entityFlags = 0): Validator
+function validate($data, $schema, string $mode = Validator::MODE_CREATE): Validator
 {
-	return new Validator($data, $schema, $entityFlags);
+	return new Validator($data, $schema, $mode);
 }
