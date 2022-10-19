@@ -1,5 +1,12 @@
 #!/usr/bin/env php
 <?php
+/**
+ * Lark Console
+ *
+ * @copyright Shay Anderson <https://shayanderson.com>
+ * @license MIT License <https://github.com/shayanderson/lark/blob/0.x/LICENSE.md>
+ * @link <https://github.com/shayanderson/lark>
+ */
 
 declare(strict_types=1);
 
@@ -12,6 +19,7 @@ use Lark\Exception as LarkException;
 
 try
 {
+	$console = null;
 	require_once './app/bootstrap.php';
 
 	// run console app
