@@ -34,6 +34,11 @@ class Handler
 			{
 				$info['file'] = $th->getFile();
 				$info['line'] = $th->getLine();
+
+				if ($th instanceof \Lark\Exception)
+				{
+					$info['context'] = $th->getContext();
+				}
 			}
 
 			// log errors except 404

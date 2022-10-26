@@ -19,6 +19,7 @@ const DIR_REVISIONS = DIR_ROOT . '/revisions';
 const DIR_ROUTES = DIR_APP . '/routes';
 const DIR_SCHEMAS = DIR_APP . '/schemas';
 const DIR_TEMPLATES = DIR_ROOT . '/templates';
+const DIR_VENDOR = DIR_ROOT . '/vendor';
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // import autoloader
