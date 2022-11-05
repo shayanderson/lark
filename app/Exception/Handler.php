@@ -22,6 +22,7 @@ class Handler
 	{
 		Exception::handle($th, function (array $info) use ($th)
 		{
+			$isDebug = defined('DEBUG') && DEBUG;
 			$code = $th->getCode();
 
 			if (!$code || $code > 599)
@@ -30,7 +31,7 @@ class Handler
 			}
 
 			// add more exception info
-			if (DEBUG)
+			if ($isDebug)
 			{
 				$info['file'] = $th->getFile();
 				$info['line'] = $th->getLine();
@@ -48,7 +49,7 @@ class Handler
 			}
 
 			// output message as error
-			if (!DEBUG)
+			if (!$isDebug)
 			{
 				halt($code, $th->getMessage());
 			}

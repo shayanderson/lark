@@ -31,7 +31,7 @@ require_once DIR_APP . '/functions.php';
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // load .env file
-Env::getInstance()->load(DIR_ROOT . '/.env');
+// Env::getInstance()->load(DIR_ROOT . '/.env');
 // #todo change to: app()->use('env.load', DIR_ROOT . '/.env'); // without dir, auto root dir
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -58,15 +58,15 @@ Logger::handler(app()->logHandler);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // database connections
-app()->use('db.connection.default', [
-	'hosts' => ['192.168.2.107'],
-	'username' => env('DB_USER'),
-	'password' => env('DB_PASSWORD'),
-	'options' => [
-		'debug.dump' => false,
-		'debug.log' => false
-	]
-]);
+// app()->use('db.connection.default', [
+// 	'hosts' => ['127.0.0.1'],
+// 	'username' => env('DB_USER'),
+// 	'password' => env('DB_PASSWORD'),
+// 	'options' => [
+// 		'debug.dump' => false,
+// 		'debug.log' => false
+// 	]
+// ]);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // store sessions in database
