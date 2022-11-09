@@ -32,7 +32,7 @@ require_once DIR_APP . '/functions.php';
 ///////////////////////////////////////////////////////////////////////////////////////
 // load .env file
 // Env::getInstance()->load(DIR_ROOT . '/.env');
-// #todo change to: app()->use('env.load', DIR_ROOT . '/.env'); // without dir, auto root dir
+#todo change to: app()->use('env.load', DIR_ROOT . '/.env'); // without dir, auto root dir
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // app debug mode
