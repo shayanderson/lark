@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exception\ResourceNotFoundException;
+use Lark\Database\Query;
 use Lark\HookableTrait;
 use Lark\Router;
 use Lark\Router\RouteControllerInterface;
@@ -122,6 +123,18 @@ class Controller implements RouteControllerInterface
 			})
 
 			/**
+			 * POST /[base-route]/_count
+			 *
+			 * (fetch documents count with query)
+			 */
+			->post('/_count', function (): array
+			{
+				return $this->postCount(
+					req()->jsonObject(returnArray: true)
+				);
+			})
+
+			/**
 			 * POST /[base-route]/_doc
 			 *
 			 * (create single document)
@@ -130,6 +143,18 @@ class Controller implements RouteControllerInterface
 			{
 				return $this->postDoc(
 					req()->jsonObject()
+				);
+			})
+
+			/**
+			 * POST /[base-route]/_find
+			 *
+			 * (fetch documents with query)
+			 */
+			->post('/_find', function (): array
+			{
+				return $this->postFind(
+					req()->jsonObject(returnArray: true)
 				);
 			})
 
@@ -264,6 +289,22 @@ class Controller implements RouteControllerInterface
 	}
 
 	/**
+	 * Fetch documents count with query
+	 *
+	 * @param array $query
+	 * @return array
+	 */
+	public function postCount(array $query): array
+	{
+		$this->hook(__FUNCTION__, $query);
+
+		return ['count' => (new Query(
+			$this->model,
+			$query
+		))->count()];
+	}
+
+	/**
 	 * Create single document
 	 *
 	 * @param stdClass $doc
@@ -276,6 +317,22 @@ class Controller implements RouteControllerInterface
 		return $this->model->db()->findId(
 			$this->model->db()->insertOne($doc)
 		);
+	}
+
+	/**
+	 * Fetch documents with query
+	 *
+	 * @param array $query
+	 * @return array
+	 */
+	public function postFind(array $query): array
+	{
+		$this->hook(__FUNCTION__, $query);
+
+		return (new Query(
+			$this->model,
+			$query
+		))->find();
 	}
 
 	/**

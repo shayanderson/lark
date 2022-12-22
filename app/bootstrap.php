@@ -53,7 +53,7 @@ Logger::handler(app()->logHandler);
 // app()->use('db.options', [
 // 	'debug.dump' => true,
 // 	'debug.log' => true,
-// 	'find.limit' => 10_000
+// 	'find.limit' => 1_000
 // ]);
 
 ///////////////////////////////////////////////////////////////////////////////////////
