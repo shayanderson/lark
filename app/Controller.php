@@ -125,7 +125,7 @@ class Controller implements RouteControllerInterface
 			/**
 			 * POST /[base-route]/_count
 			 *
-			 * (fetch documents count with query)
+			 * (fetch documents count by query)
 			 */
 			->post('/_count', function (): array
 			{
@@ -149,7 +149,7 @@ class Controller implements RouteControllerInterface
 			/**
 			 * POST /[base-route]/_find
 			 *
-			 * (fetch documents with query)
+			 * (fetch documents by query)
 			 */
 			->post('/_find', function (): array
 			{
@@ -289,7 +289,7 @@ class Controller implements RouteControllerInterface
 	}
 
 	/**
-	 * Fetch documents count with query
+	 * Fetch documents count by query
 	 *
 	 * @param array $query
 	 * @return array
@@ -320,7 +320,7 @@ class Controller implements RouteControllerInterface
 	}
 
 	/**
-	 * Fetch documents with query
+	 * Fetch documents by query
 	 *
 	 * @param array $query
 	 * @return array

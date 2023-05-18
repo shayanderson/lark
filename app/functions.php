@@ -48,6 +48,29 @@ function json_decoder(string $json, ?bool $associative = null, int $depth = 512,
 }
 
 /**
+ * Object to array (recursive)
+ *
+ * @param mixed $value
+ * @return mixed
+ */
+function &obj_to_arr(mixed $value): mixed
+{
+	if (!is_array($value) && !is_object($value))
+	{
+		return $value;
+	}
+
+	$r = [];
+
+	foreach ((array)$value as $k => $v)
+	{
+		$r[$k] = obj_to_arr($v);
+	}
+
+	return $r;
+}
+
+/**
  * Validator helper
  *
  * @param array|object $data
